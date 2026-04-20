@@ -124,6 +124,27 @@ int tree_from_index(ObjectID *id_out) {
     if (index_load(&index) != 0) {
         return -1;
     }
+       // STEP 2: Fill tree entries
+    for (int i = 0; i < index.count; i++) {
+        IndexEntry *entry = &index.entries[i];
+
+        TreeEntry *tentry = &tree.entries[tree.count++];
+
+        // Mode
+        tentry->mode = entry->mode;
+
+        // Name (IMPORTANT: only filename, not full path)
+        const char *slash = strrchr(entry->path, '/');
+        if (slash) {
+            strcpy(tentry->name, slash + 1);
+        } else {
+            strcpy(tentry->name, entry->path);
+        }
+
+        // Hash
+        tentry->hash = entry->id;
+    }
+
     Tree tree;
     tree.count = 0;
     (void)id_out;
