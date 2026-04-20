@@ -154,21 +154,33 @@ int index_load(Index *index) {
 }
 
 int index_save(const Index *index) {
-    // TODO: Implement atomic index saving
-    // (See Lab Appendix for logical steps)
-    (void)index;
-    return -1;
-}
+    char temp[] = ".pes/index.tmpXXXXXX";
+    int fd = mkstemp(temp);
+    if (fd < 0) return -1;
 
-// Stage a file for the next commit.
-//
-// HINTS - Useful functions and syscalls:
-//   - fopen, fread, fclose             : reading the target file's contents
-//   - object_write                     : saving the contents as OBJ_BLOB
-//   - stat / lstat                     : getting file metadata (size, mtime, mode)
-//   - index_find                       : checking if the file is already staged
-//
-// Returns 0 on success, -1 on error.
+    FILE *f = fdopen(fd, "w");
+    if (!f) {
+        close(fd);
+        return -1;
+    }
+
+    for (int i = 0; i < index->count; i++) {
+        const IndexEntry *e = &index->entries[i];
+
+        char hex[HASH_HEX_SIZE + 1];
+        hash_to_hex(&e->hash, hex);
+
+        fprintf(f, "%o %s %lu %u %s\n",
+                e->mode, hex, e->mtime_sec, e->size, e->path);
+    }
+
+    fflush(f);
+    fsync(fd);
+    fclose(f);
+
+    rename(temp, INDEX_FILE);
+    return 0;
+}
 int index_add(Index *index, const char *path) {
     // TODO: Implement file staging
     // (See Lab Appendix for logical steps)
