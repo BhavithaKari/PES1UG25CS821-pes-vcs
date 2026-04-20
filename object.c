@@ -94,7 +94,12 @@ int object_exists(const ObjectID *id) {
 //
 // Returns 0 on success, -1 on error.
 int object_write(ObjectType type, const void *data, size_t len, ObjectID *id_out) {
-    // TODO: Implement
+    char header[50];
+    int header_len = sprintf(header, "blob %ld", size) + 1;
+    char *full_object = malloc(header_len + size);
+
+     memcpy(full_object, header, header_len);
+     memcpy(full_object + header_len, data, size);
     (void)type; (void)data; (void)len; (void)id_out;
     return -1;
 }
