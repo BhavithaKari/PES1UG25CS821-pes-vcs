@@ -144,6 +144,13 @@ int tree_from_index(ObjectID *id_out) {
         // Hash
         tentry->hash = entry->id;
     }
+        // STEP 3: Serialize tree
+    void *data = NULL;
+    size_t len = 0;
+
+    if (tree_serialize(&tree, &data, &len) != 0) {
+        return -1;
+    }
 
     Tree tree;
     tree.count = 0;
