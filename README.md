@@ -1,4 +1,4 @@
-# Building PES-VCS — A Version Control System from Scratch
+<img width="841" height="417" alt="image" src="https://github.com/user-attachments/assets/598573c1-2750-4e92-91e1-717fa27e9cb0" /># Building PES-VCS — A Version Control System from Scratch
 
 **Objective:** Build a local version control system that tracks file changes, stores snapshots efficiently, and supports commit history. Every component maps directly to operating system and filesystem concepts.
 
@@ -375,8 +375,10 @@ The test program verifies:
 - Integrity checking (detects corrupted objects)
 
 **📸 Screenshot 1A:** Output of `./test_objects` showing all tests passing.
+<img width="982" height="171" alt="image" src="https://github.com/user-attachments/assets/bbe76f14-6eb9-4231-abdd-e444f123dfd5" />
 
 **📸 Screenshot 1B:** `find .pes/objects -type f` showing the sharded directory structure.
+<img width="987" height="113" alt="image" src="https://github.com/user-attachments/assets/b167cd59-fb41-44bb-94f2-5645cd418cb6" />
 
 ---
 
@@ -407,8 +409,10 @@ The test program verifies:
 - Deterministic serialization (same entries in any order → identical output)
 
 **📸 Screenshot 2A:** Output of `./test_tree` showing all tests passing.
+<img width="873" height="147" alt="image" src="https://github.com/user-attachments/assets/04e2b087-4fa3-404f-b327-a9dc28506c3a" />
 
 **📸 Screenshot 2B:** Pick a tree object from `find .pes/objects -type f` and run `xxd .pes/objects/XX/YYY... | head -20` to show the raw binary format.
+<img width="972" height="75" alt="image" src="https://github.com/user-attachments/assets/5899a3bc-1cac-4c8c-9fd7-e521ae19946e" />
 
 ---
 
@@ -465,8 +469,10 @@ cat .pes/index    # Human-readable text format
 ```
 
 **📸 Screenshot 3A:** Run `./pes init`, `./pes add file1.txt file2.txt`, `./pes status` — show the output.
+<img width="866" height="678" alt="image" src="https://github.com/user-attachments/assets/3ba83aae-6f6b-4f59-a603-6c3f7f593bce" />
 
 **📸 Screenshot 3B:** `cat .pes/index` showing the text-format index with your entries.
+<img width="940" height="78" alt="image" src="https://github.com/user-attachments/assets/f8a49cbb-c9bd-40e1-b8f4-a3cbeafe35a2" />
 
 ---
 
@@ -516,10 +522,13 @@ make test-integration
 ```
 
 **📸 Screenshot 4A:** Output of `./pes log` showing three commits with hashes, authors, timestamps, and messages.
+<img width="729" height="92" alt="image" src="https://github.com/user-attachments/assets/6cb10210-9f0c-429b-905c-0fcbc8193466" />
 
 **📸 Screenshot 4B:** `find .pes -type f | sort` showing object store growth after three commits.
+<img width="876" height="184" alt="image" src="https://github.com/user-attachments/assets/b508d988-1a70-48f6-b4bd-99fdfc40931c" />
 
 **📸 Screenshot 4C:** `cat .pes/refs/heads/main` and `cat .pes/HEAD` showing the reference chain.
+<img width="841" height="417" alt="image" src="https://github.com/user-attachments/assets/bab0dfa9-690b-4067-b1cc-a9a0381fa96a" />
 
 ---
 
